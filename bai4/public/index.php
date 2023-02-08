@@ -5,7 +5,7 @@ use App\Router;
 
 require_once __DIR__ . "/../vendor/autoload.php";
 
-$cate = new CategoryModel;
+// $cate = new CategoryModel;
 // var_dump($cate->all());
 
 // $cate->insert(

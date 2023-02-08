@@ -12,13 +12,41 @@ class Router
     }
     public static function post($path, $callback)
     {
-        static::$routes['get'][$path] = $callback;
+        static::$routes['post'][$path] = $callback;
     }
 
-    public function resolve()
+    public function getPath()
     {
         $path = $_SERVER['REQUEST_URI'];
         $path = str_replace('/we17313_php2/bai4/public/', "/", $path);
-        var_dump(static::$routes);
+        $postion = strpos($path, '?');
+        if ($postion) {
+            $path = substr($path, 0, $postion);
+            return $path;
+        }
+        return $path;
+    }
+
+    public function getMethod()
+    {
+        return strtolower($_SERVER['REQUEST_METHOD']);
+    }
+    public function resolve()
+    {
+        $path = $this->getPath();
+        $method = $this->getMethod();
+        $callback = false;
+        if (isset(static::$routes[$method][$path])) {
+            $callback = static::$routes[$method][$path];
+        }
+
+        if ($callback === false) {
+            echo "404 FILE NOT found!";
+            return 0;
+        }
+
+        if (is_callable($callback)) {
+            return $callback();
+        }
     }
 }
