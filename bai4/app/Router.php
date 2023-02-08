@@ -48,5 +48,11 @@ class Router
         if (is_callable($callback)) {
             return $callback();
         }
+
+        if (is_array($callback)) {
+            [$class, $action] = $callback;
+            $class = new $class;
+            return call_user_func_array([$class, $action], []);
+        }
     }
 }
