@@ -6,7 +6,11 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $this->view('home');
+        $product = [
+            'name' => 'Iphone',
+            'price' => 1000
+        ];
+        $this->view('home', ['product' => $product]);
     }
 
     public function contact()
