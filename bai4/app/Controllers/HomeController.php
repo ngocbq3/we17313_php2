@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Models\ProductModel;
+
 class HomeController extends Controller
 {
     public function index()
@@ -16,5 +18,12 @@ class HomeController extends Controller
     public function contact()
     {
         $this->view('contact');
+    }
+
+    public function show()
+    {
+        $products = ProductModel::all();
+        // var_dump($products);
+        $this->view('site/showproduct', ['products' => $products]);
     }
 }

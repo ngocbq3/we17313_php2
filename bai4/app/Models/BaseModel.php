@@ -27,7 +27,7 @@ class BaseModel
     {
         $model = new static;
         $model->sqlBuilder = "SELECT * FROM $model->tableName";
-        echo $model->sqlBuilder;
+        // echo $model->sqlBuilder;
         $stmt = $model->conn->prepare($model->sqlBuilder);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_CLASS);
