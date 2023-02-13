@@ -9,15 +9,18 @@
 </head>
 
 <body>
-    <form action="" method="post" enctype="multipart/form-data">
+    <form action="/create-product" method="post" enctype="multipart/form-data">
         Name: <input type="text" name="name" id="">
         <br>
         Image: <input type="file" name="image" id="">
         <br>
         Category:
         <select name="cate_id" id="">
-            <option value="1">Iphone</option>
-            <option value="2">Samsung</option>
+            <?php foreach ($categories as $cate) : ?>
+                <option value="<?= $cate->id ?>">
+                    <?= $cate->cate_name ?>
+                </option>
+            <?php endforeach ?>
         </select>
         <br>
         price: <input type="number" name="price" id="">

@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\CategoryModel;
 use App\Models\ProductModel;
 use App\Request;
 
@@ -14,10 +15,20 @@ class ProductController extends Controller
     }
     public function create()
     {
-        return $this->view('admin/products/add');
+        $categories = CategoryModel::all();
+        return $this->view('admin/products/add', ['categories' => $categories]);
     }
     public function store(Request $request)
     {
-        var_dump($request->getBody());
+        $product = $request->getBody();
+        $image = $_FILES['image']['name'];
+        $product['image'] = $image;
+        //Upload file
+        move_uploaded_file($_FILES['image']['tmp_name'], 'images/' . $image);
+
+        //insert
+        $p = new ProductModel();
+        $p->insert($product);
+        header("location:/product");
     }
 }
