@@ -9,6 +9,9 @@
 </head>
 
 <body>
+    <?php if ($message != '') : ?>
+        <div><?= $message ?></div>
+    <?php endif ?>
     <table border="1">
         <th>ID</th>
         <th>Name</th>
@@ -26,6 +29,8 @@
                 </td>
                 <td>
                     <a href="/update-product?id=<?= $product->id ?>">Edit</a>
+
+                    <a href="/delete-product?id=<?= $product->id ?>" onclick="return confirm('Bạn có muốn xóa không?')">Delete</a>
                 </td>
             </tr>
         <?php endforeach ?>

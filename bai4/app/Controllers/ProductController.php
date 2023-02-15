@@ -11,7 +11,17 @@ class ProductController extends Controller
     public function index()
     {
         $products = ProductModel::all();
-        return $this->view('admin/products/list', ['products' => $products]);
+        $message = '';
+        if (isset($_COOKIE['message'])) {
+            $message = $_COOKIE['message'];
+        }
+        return $this->view(
+            'admin/products/list',
+            [
+                'products' => $products,
+                'message' => $message
+            ]
+        );
     }
     public function create()
     {
@@ -58,6 +68,18 @@ class ProductController extends Controller
 
         //update
         ProductModel::findOne($data['id'])->update($data);
+        header("location:/product");
+        exit;
+    }
+
+    public function delete(Request $request)
+    {
+        $id = $request->getBody()['id'];
+        $product = new ProductModel();
+        $product->delete($id);
+
+        setcookie('message', 'Xóa dữ liệu thành công', time() + 1);
+
         header("location:/product");
         exit;
     }
